@@ -1,0 +1,24 @@
+#!/bin/sh
+
+# test 1
+TEST1=$(echo "(0.8235294118,0.7142857143,67.23529412)\n" | tr -d '\n')
+
+# test 2
+TEST2=$(echo "(0.7272727273,1,60.63636364)\n" | tr -d '\n')
+
+make clean && make
+
+RESULT1=$(./memory_driver L2-test.txt | tr -d '\n')
+RESULT2=$(./memory_driver victim-debug.txt | tr -d '\n')
+
+if [[ "${TEST1}" == "${RESULT1}" ]]; then
+    echo 'passed test 1'
+else
+    echo 'failed test 1: '${TEST1}' != '${RESULT1}
+fi
+
+if [[ "${TEST2}" == "${RESULT2}" ]]; then
+    echo 'passed test 2'
+else
+    echo 'failed test 1: '${TEST2}' != '${RESULT2}
+fi
